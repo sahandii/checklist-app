@@ -1,0 +1,212 @@
+@import "./partials/utilities";
+
+@mixin box-shadow($x, $y, $radius, $color, $opacity) {
+	box-shadow: $x $y $radius 0 rgba($color, $opacity);
+}
+$font-family-sans-serif: BlinkMacSystemFont, "Segoe UI", "Roboto",
+	"Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+	"Segoe UI Symbol" !default;
+$blue: #2d56fd;
+body {
+	font-family: $font-family-sans-serif;
+	color: #555;
+}
+a {
+	color: $blue;
+}
+#wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: #ededed;
+}
+@media all and (max-width: 900px) {
+	#sidebar {
+		max-width: 0 !important;
+		opacity: 0 !important;
+		visibility: hidden !important;
+	}
+	#todoApp {
+		max-width: calc(100vw - 30px) !important;
+	}
+}
+#todoApp {
+	overflow: hidden;
+	width: 100%;
+	max-width: 800px;
+	height: 500px;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 0 10px 70px rgba(0, 0, 0, 0.05);
+}
+#sidebar {
+	transition: 0.25s ease-in-out 0s;
+	transition-property: max-width, opacity;
+	z-index: 1;
+	max-width: 200px;
+	background: rgb(45, 86, 253);
+	background: -moz-linear-gradient(
+		0deg,
+		rgba(45, 86, 253, 1) 0%,
+		rgba(34, 193, 195, 1) 100%
+	);
+	background: -webkit-linear-gradient(
+		0deg,
+		rgba(45, 86, 253, 1) 0%,
+		rgba(34, 193, 195, 1) 100%
+	);
+	background: linear-gradient(
+		0deg,
+		rgba(45, 86, 253, 1) 0%,
+		rgba(34, 193, 195, 1) 100%
+	);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2d56fd",endColorstr="#22c1c3",GradientType=1);
+}
+button {
+	cursor: pointer;
+	outline: none;
+	user-select: none;
+	background-color: transparent;
+}
+.todo-item button.checkbox {
+	opacity: 0.25;
+}
+.todo-item.checked {
+	background-color: transparent;
+	&:hover {
+		transform: none;
+		box-shadow: none;
+	}
+	h4 {
+		opacity: 0.5;
+		text-decoration: line-through;
+	}
+	button.checkbox {
+		opacity: 1;
+		position: relative;
+		border-color: #4caf50;
+		&:after {
+			color: #4caf50;
+			content: "✓";
+			display: block;
+			width: 100%;
+			height: 100%;
+			transform: translate3d(-50%, -50%, 0);
+			top: 50%;
+			position: absolute;
+			left: 50%;
+			line-height: 18px;
+			font-size: 0.65em;
+			font-weight: 900;
+		}
+	}
+}
+.circle {
+	border-radius: 100px;
+	border: 1px solid;
+	width: 35px;
+	height: 35px;
+	font-size: 1.5em;
+	text-align: center;
+}
+.circle-small {
+	@extend .circle;
+	width: 20px;
+	height: 20px;
+}
+.circle.blue {
+	border-color: $blue;
+	&:after {
+		color: $blue;
+	}
+	&:hover {
+		background-color: $blue;
+		border: none;
+		&:after {
+			color: white;
+		}
+	}
+}
+button.plus-icon {
+	position: relative;
+	&:after {
+		pointer-events: none;
+		position: absolute;
+		top: -3px;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		content: "+";
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.25em;
+	}
+}
+#todoList header {
+	position: relative;
+	z-index: 1;
+	box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.15);
+	input {
+		font-size: 1.25em;
+		user-select: none;
+		outline: 0;
+		border: 0;
+		width: 75%;
+	}
+}
+.todo-item {
+	// animation-name: bounceUp;
+	animation-duration: 0.4s;
+	animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	box-shadow: 0 0 0 0 transparent;
+	transition: 0.05s ease-in-out 0s;
+	cursor: default;
+	background-color: #f9f9f9;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	border-radius: 5px;
+	position: relative;
+	h4 {
+		font-weight: 600;
+		width: 80%;
+		font-size: 1em;
+		border: none;
+		background-color: transparent;
+		user-select: none;
+		outline: none;
+	}
+	.fas {
+		cursor: pointer;
+		display: none;
+	}
+	&:hover {
+		z-index: 1;
+		transform: scale(1.025);
+		box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.05);
+		.fas {
+			display: block;
+		}
+	}
+}
+.todo-item--container {
+	overflow-y: scroll;
+	height: calc(500px - 87px);
+}
+.todo-item--container .todo-item:last-child {
+	margin-bottom: 2em !important;
+}
+.empty-message {
+	animation-name: bounceUp;
+	animation-duration: 0.4s;
+	animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes bounceUp {
+	from {
+		transform: translateY(50px);
+	}
+	to {
+		transform: none;
+	}
+}
