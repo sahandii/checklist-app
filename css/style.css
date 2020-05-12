@@ -4190,10 +4190,6 @@ button.plus-icon:after {
 
 #todoList header input {
   font-size: 1.25em;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   outline: 0;
   border: 0;
   width: 75%;
